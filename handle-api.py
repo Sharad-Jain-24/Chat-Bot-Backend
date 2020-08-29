@@ -3,6 +3,7 @@
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import main
 
 app = Flask(__name__)
 CORS(app)
@@ -23,6 +24,8 @@ def jsonexample():
     req_data = request.get_json()
     bot_response = "Custom Response"
     user_input = req_data["user-input"]
+
+    bot_response = main.start(user_input)
 
     return jsonify({
         "method": "POST",
