@@ -9,14 +9,13 @@ import random
 from keras.models import load_model
 
 lemmatizer = WordNetLemmatizer()
-nltk.download('wordnet')
 
 model = load_model('chatbot_model.h5')
 
 
 intents = json.loads(open('intents.json').read())
-words = pickle.load(open('words.pkl', 'rb'))
-classes = pickle.load(open('classes.pkl', 'rb'))
+words = pickle.load(open('words.pkl','rb'))
+classes = pickle.load(open('classes.pkl','rb'))
 
 
 def clean_up_sentence(sentence):
@@ -36,7 +35,7 @@ def bow(sentence, words, show_details=True):
                 bag[i] = 1
                 if show_details:
                     print("found in bag: %s" % w)
-    return np.array(bag)
+    return(np.array(bag))
 
 
 def predict_class(sentence, model):
@@ -55,7 +54,7 @@ def getResponse(ints, intents_json):
     tag = ints[0]['intent']
     list_of_intents = intents_json['intents']
     for i in list_of_intents:
-        if i['tag'] == tag:
+        if i['tag']== tag:
             result = random.choice(i['responses'])
             break
     return result
@@ -77,7 +76,6 @@ def send(msg):
 
 
 def start(user_input):
-    print("[YOU]: " + user_input)
     res = send(user_input)
     return res
 
